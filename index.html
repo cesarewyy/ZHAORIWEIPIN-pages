@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>朝日唯品 ZHAORIWEIPIN · 中国与全球出圈热梗营销工作台</title>
+  <style>
+    :root {
+      --bg: #faf8f3;
+      --card: #ffffff;
+      --surface: #f2efe6;
+      --border: #e5e0d4;
+      --text: #1c241f;
+      --muted: #5d6660;
+      --primary: #1e5631;
+      --primary-fg: #ffffff;
+      --primary-soft: #eef5f0;
+      --accent-blue: #0b4ea2;
+      --safe: #15803d;
+      --safe-bg: #ecfdf3;
+      --safe-border: #bbf7d0;
+      --warn: #b45309;
+      --warn-bg: #fffbeb;
+      --warn-border: #fde68a;
+      --link: #0b4ea2;
+      --bar-heat: #0b4ea2;
+      --bar-fit: #1e5631;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 12px;
+    }
+    .badge-primary { background: var(--primary); color: var(--primary-fg); }
+    .badge-soft { background: var(--surface); color: var(--text); }
+    .badge-safe { background: var(--safe-bg); color: var(--safe); border: 1px solid var(--safe-border); }
+    .badge-warn { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-border); }
+    .issue-select {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: none;
+      background: var(--primary);
+      color: var(--primary-fg);
+      cursor: pointer;
+      outline: none;
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .subtitle {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .subtitle strong { color: var(--text); font-weight: 600; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      transition: all 0.15s ease;
+    }
+    button:hover { background: var(--surface); }
+    button.btn-primary {
+      background: var(--primary);
+      color: var(--primary-fg);
+      border-color: var(--primary);
+    }
+    button.btn-primary:hover { opacity: 0.92; }
+
+    /* Analytics Grid */
+    .analytics {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 820px) {
+      .analytics { grid-template-columns: 1fr 2fr; }
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .matrix-btn {
+      text-align: left;
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .matrix-btn:hover { border-color: var(--primary); background: var(--primary-soft); }
+    .matrix-label { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+    .matrix-val { font-size: 20px; font-weight: 600; margin-top: 4px; color: var(--text); }
+    .matrix-val span { font-size: 12px; font-weight: 400; color: var(--muted); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-safe { background: var(--safe); }
+    .dot-warn { background: var(--warn); }
+    .dot-primary { background: var(--primary); }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+    .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+    .legend-box { width: 10px; height: 8px; border-radius: 2px; display: inline-block; }
+    .chart-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .chart-row:hover { background: var(--bg); }
+    .chart-name { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bars { display: flex; flex-direction: column; gap: 4px; }
+    .bar-line { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+    .bar-track { flex: 1; height: 7px; background: var(--surface); border-radius: 999px; overflow: hidden; }
+    .bar-track.thin { height: 5px; }
+    .bar-fill { height: 100%; border-radius: 999px; }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+    }
+    .filter-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .segmented {
+      display: inline-flex;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .segmented button {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 7px;
+      color: var(--muted);
+    }
+    .segmented button.active {
+      background: var(--primary);
+      color: var(--primary-fg);
+    }
+    select, input[type="text"] {
+      font-family: inherit;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+    }
+    input[type="text"]:focus, select:focus { border-color: var(--primary); }
+    input[type="text"] { width: 220px; }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 860px) {
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .meme-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .meme-card.adopted { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+    .meme-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .meme-title { margin: 6px 0 4px; font-size: 16px; font-weight: 600; line-height: 1.35; }
+    .meme-meta { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { font-size: 12px; padding: 2px 9px; border-radius: 999px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
+
+    .steps-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .step { display: flex; align-items: flex-start; gap: 8px; }
+    .step-num {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+    .step-num.accent { background: var(--primary); color: var(--primary-fg); }
+    .safety-note { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .origin-links { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+    .origin-links a { color: var(--link); text-decoration: none; }
+    .origin-links a:hover { text-decoration: underline; }
+
+    .copy-box {
+      background: var(--primary-soft);
+      border: 1px solid #cfe0d6;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .copy-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .copy-label { font-size: 12px; font-weight: 600; color: var(--primary); }
+    .copy-text { margin: 0; font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.6; }
+
+    /* Table View */
+    .table-wrap { overflow-x: auto; padding: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+    th { background: var(--bg); color: var(--muted); font-weight: 600; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .hidden { display: none !important; }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--text);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top-Level Channel Navigation (L1) -->
+    <nav class="card" style="padding:10px 16px; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <span style="font-size:12px; font-weight:700; color:var(--primary); letter-spacing:0.02em;">ZHAORIWEIPIN 工作台</span>
+        <div class="segmented">
+          <button id="tabRadarBtn" class="active" onclick="switchMainTab('radar')">📡 每周热点雷达（周更追踪）</button>
+          <button id="tabCasesBtn" onclick="switchMainTab('cases')">🏛️ 经典营销案例库（常青沉淀）</button>
+        </div>
+      </div>
+      <span id="tabHintText" style="font-size:12px; color:var(--muted);">当前频道：追踪国内外社媒热梗、品牌动作与饮食风味</span>
+    </nav>
+
+    <!-- Header (L2) -->
+    <header class="card">
+      <div class="header-top">
+        <div>
+          <div class="badges" id="headerBadges">
+            <select id="issueSelect" class="issue-select" title="切换历史简报期数"></select>
+            <span id="windowBadge" class="badge badge-soft"></span>
+            <span id="safetyBadge" class="badge badge-safe"><span class="dot dot-safe"></span>已过滤政治 / 饭圈 / 争议人物</span>
+            <span id="casesModeBadge" class="badge badge-soft hidden">🏛️ 常青沉淀 · 按 4 大营销课题分类</span>
+          </div>
+          <h1>朝日唯品 ZHAORIWEIPIN · 热梗追踪 &amp; 营销工作台</h1>
+          <p class="subtitle">
+            品牌主张：<strong>一丝不苟，不慌不忙 · 循序慢作 · 少比多好</strong> ｜ 核心受众：<strong>50% 感知者</strong>（20–40岁·关怀/共栖/丰盛）＋ <strong>30% 鉴赏家</strong>（25–45岁·泊处/归属/关怀）
+          </p>
+        </div>
+        <div class="btn-row">
+          <button id="exportMdBtn" class="btn-primary">导出当前期 Markdown</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="radarWorkspace">
+    <!-- Analytics -->
+    <section class="analytics">
+      <div class="card">
+        <h2 class="section-title">地区 × 品牌安全度矩阵（点击筛选）</h2>
+        <div class="matrix-grid">
+          <button class="matrix-btn" onclick="quickFilter('cn','safe')">
+            <div class="matrix-label"><span>🇨🇳 中国 · 安全</span><span class="dot dot-safe"></span></div>
+            <div id="kpiCnSafe" class="matrix-val">0 <span>个</span></div>
+          </button>
+          <button class="matrix-btn" onclick="quickFilter('cn','caution')">
+            <div class="matrix-label"><span>🇨🇳 中国 · 需注意</span><span class="dot dot-warn"></span></div>
+            <div id="kpiCnCaution" class="matrix-val">0 <span>个</span></div>
+          </button>
+          <button class="matrix-btn" onclick="quickFilter('global','safe')">
+            <div class="matrix-label"><span>🌍 全球 · 安全</span><span class="dot dot-safe"></span></div>
+            <div id="kpiGlobalSafe" class="matrix-val">0 <span>个</span></div>
+          </button>
+          <button class="matrix-btn" onclick="quickFilter('all','all')">
+            <div class="matrix-label"><span>📌 已采纳选题</span><span class="dot dot-primary"></span></div>
+            <div id="adoptedKpi" class="matrix-val">0 <span>/ 0</span></div>
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chart-header">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <h2 class="section-title" style="margin:0;">品牌契合度 × 传播热度总览</h2>
+            <div class="segmented" style="padding:2px;">
+              <button id="sortByFitBtn" class="active" style="padding:3px 9px; font-size:11px;" onclick="setChartSort('fit')">按契合度</button>
+              <button id="sortByHeatBtn" style="padding:3px 9px; font-size:11px;" onclick="setChartSort('heat')">按热度</button>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="legend">
+              <span class="legend-item"><span class="legend-box" style="background:var(--bar-fit)"></span>品牌契合</span>
+              <span class="legend-item"><span class="legend-box" style="background:var(--bar-heat)"></span>全网热度</span>
+            </div>
+            <button id="toggleChartExpandBtn" onclick="toggleChartExpand()" style="padding:4px 10px; font-size:11px;">展开全部 ▾</button>
+          </div>
+        </div>
+        <div id="overviewChart"></div>
+      </div>
+    </section>
+
+    <!-- Data & Brand Fit Scoring Methodology Notes -->
+    <section class="card" style="padding:14px 18px; font-size:12px; color:var(--muted); line-height:1.65; display:flex; flex-direction:column; gap:12px;">
+      <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start;">
+        <div style="font-weight:600; color:var(--text); flex-shrink:0;">📊 数据来源说明：</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px 18px; flex:1;">
+          <div><strong style="color:var(--text);">时间节点：</strong>核对自公开媒体报道、官方通稿及百科词条的真实发布日期。</div>
+          <div><strong style="color:var(--text);">曝光 / 播放量：</strong>引用媒体公开报道、官方通稿及 YouTube 等公开页面数据（小红书/抖音/TikTok 无后台直抓接口）。</div>
+          <div><strong style="color:var(--text);">全网热度分（0–100）：</strong>结合公开量级与跨平台扩散度估算的<span style="color:var(--text);">相对参考分</span>（非第三方商业 API 数值）。</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border); padding-top:10px; display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start;">
+        <div style="font-weight:600; color:var(--primary); flex-shrink:0;">🎯 品牌契合度（0–100）打分逻辑：</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:8px 16px; flex:1;">
+          <div><strong style="color:var(--text);">① 品牌基因（25%）：</strong>贴合「一丝不苟不慌不忙 / 循序慢作 / 少比多好 / 土地与自然」。</div>
+          <div><strong style="color:var(--text);">② 受众驱动（25%）：</strong>精准命中 50% 感知者（关怀/共栖/丰盛）或 30% 鉴赏家（泊处/归属）。</div>
+          <div><strong style="color:var(--text);">③ 场景落地性（25%）：</strong>自然融入有机牛乳、果蔬、包装微交互、食谱或快闪。</div>
+          <div><strong style="color:var(--text);">④ 平台真实口碑 &amp; 高客单价友好度（25%）：</strong>反查评论区真实语境，排除“消费降级/平替省钱”底色带来的价格反噬风险。<span style="color:var(--primary);">（90+ 强推 · 80–89 稳妥 · &lt;80 需转化/慎用）</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toolbar -->
+    <section class="card toolbar">
+      <div class="filter-group">
+        <div class="segmented">
+          <button id="btnRegAll" data-region="all" class="region-btn active">全部</button>
+          <button id="btnRegCn" data-region="cn" class="region-btn">🇨🇳 中国区</button>
+          <button id="btnRegGlobal" data-region="global" class="region-btn">🌍 全球区</button>
+        </div>
+        <select id="dimensionFilter">
+          <option value="all">全部雷达维度</option>
+          <option value="meme">🔥 社媒热梗 &amp; 互动玩法</option>
+          <option value="event">🏛️ 品牌动作 &amp; 城市大事件</option>
+          <option value="mindset">🌱 消费心智 &amp; 饮食思潮</option>
+          <option value="flavor">🍋 新兴风味 &amp; 餐饮灵感</option>
+        </select>
+        <select id="safetyFilter">
+          <option value="all">全部安全度</option>
+          <option value="safe">安全可用</option>
+          <option value="caution">需注意语境</option>
+        </select>
+        <select id="audienceFilter">
+          <option value="all">全部人群 (80%核心)</option>
+          <option value="perceiver">🌿 感知者 (50%)</option>
+          <option value="connoisseur">🏛️ 鉴赏家 (30%)</option>
+        </select>
+        <button id="adoptedOnlyBtn">只看已采纳</button>
+      </div>
+      <div class="filter-group">
+        <input id="searchInput" type="text" placeholder="搜索梗名、平台、产品场景..." />
+        <div class="segmented">
+          <button id="viewCardsBtn" class="active">卡片视图</button>
+          <button id="viewTableBtn">对比矩阵</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Cards -->
+    <main id="cardsGrid" class="cards-grid"></main>
+
+    <!-- Matrix View -->
+    <section id="tableView" class="card table-wrap hidden">
+      <table>
+        <thead>
+          <tr>
+            <th>热梗 / 地区</th>
+            <th>来源平台</th>
+            <th>阶段 &amp; 安全度</th>
+            <th>热度 / 契合</th>
+            <th>品牌借势示范（点击复制）</th>
+            <th style="text-align:right;">操作</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </section>
+
+    <!-- Empty -->
+    <div id="emptyState" class="card hidden" style="text-align:center; padding: 40px 20px;">
+      <div style="font-weight:600; margin-bottom:4px;">没有符合当前筛选条件的热梗</div>
+      <div style="font-size:12px; color:var(--muted);">试试切换地区、安全度或清空搜索关键词</div>
+    </div>
+    </div><!-- end #radarWorkspace -->
+
+    <!-- Classic Marketing Case Library Workspace -->
+    <div id="casesWorkspace" class="hidden">
+      <section class="card" style="padding:16px 20px; margin-bottom:16px;">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div>
+            <h2 class="section-title" style="margin-bottom:6px;">🏛️ 经典营销案例库 · 按「营销要解决的核心课题」分类沉淀</h2>
+            <p style="font-size:12px; color:var(--muted); margin:0; line-height:1.6;">
+              不按时间过期，专供团队做提案、找方法论与“抄作业”。每个案例均围绕朝日唯品（<strong>50% 感知者 + 30% 鉴赏家</strong>）提炼可复用公式。
+            </p>
+          </div>
+          <span class="badge badge-soft" id="caseCountBadge">共 8 个经典标杆</span>
+        </div>
+        <div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;">
+          <div class="segmented" style="flex-wrap:wrap;">
+            <button class="case-cat-btn active" data-cat="all" onclick="setCaseCategory('all')">全部课题</button>
+            <button class="case-cat-btn" data-cat="value" onclick="setCaseCategory('value')">💎 品牌溢价与价值锚定</button>
+            <button class="case-cat-btn" data-cat="scenario" onclick="setCaseCategory('scenario')">🚀 日常品破圈与场景重构</button>
+            <button class="case-cat-btn" data-cat="collab" onclick="setCaseCategory('collab')">🤝 跨界联名与社交货币</button>
+            <button class="case-cat-btn" data-cat="experience" onclick="setCaseCategory('experience')">🕯️ 感官体验与用户共创</button>
+          </div>
+          <input id="caseSearchInput" type="search" placeholder="搜索品牌、年份或打法..." style="min-width:210px;" oninput="renderCases()" />
+        </div>
+      </section>
+      <main id="casesGrid" class="cards-grid"></main>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden">已复制到剪贴板</div>
+
+  <script>
+    // 多期归档数据：每次周更新只需在 ISSUES 数组最前面（index 0）追加新的一期，历史期数永久保留！
+    const ISSUES = [
+      {
+        id: '2026-11-w4',
+        label: '第 1 期 · 2026.11 第4周（最新）',
+        window: '统计窗口：2026.08.24 – 11.24（首期近3月溯源｜下期起每周更新）',
+        memes: [
+          {
+            id: 'tree-tree',
+            region: 'cn',
+            regionLabel: '中国区',
+            shortName: 'tree tree 的',
+            title: '「tree tree 的」（脆脆的）',
+            platforms: ['抖音', '小红书', '微博'],
+            timeWindow: '11.20–11.24 刷屏',
+            heatScore: 95,
+            fitScore: 96,
+            audience: 'both',
+            audienceLabel: '🌿感知者 + 🏛️鉴赏家',
+            tags: ['有机脆果', '鲜蔬口感', '活人感'],
+            step1: '许昌外卖小哥自费给顾客换炸鸡，方言夸“脆脆的”被空耳成“tree tree 的”',
+            step2: '小红书/抖音美食区用其形容一切清脆口感，相关话题冲上微博热搜第一',
+            step3: '主打1500亩有机农场“不慌不忙”长出的鲜蔬脆果本真滋味',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '底色是朴实善意与美食分享，极度契合果蔬清脆口感；自然借用拟声脆感即可。',
+            scenario: '小红书标题',
+            copy: '咬下去真的“tree tree 的”！在有机农场里“不慌不忙”长大的脆生菜与鲜果，带着阳光和鲜活土壤的本真滋味。',
+            originSourceText: '抖音（河南许昌外卖小哥自费买炸鸡原视频，站外无直链）',
+            links: [
+              { label: '微博热搜话题帖（1.9万+观看）', url: 'https://weibo.com/2/detail/5368368427435343' },
+              { label: '湖北日报《东湖快语》报道', url: 'http://news.cnhubei.com/content/2026-11/24/content_20300064.html' }
+            ]
+          },
+          {
+            id: 'chun-guo-ri-zi',
+            region: 'cn',
+            regionLabel: '中国区',
+            shortName: '纯过日子时代',
+            title: '「纯过日子人 / 纯过日子时代」',
+            platforms: ['小红书', '播客圈', '澎湃新闻'],
+            timeWindow: '11月消费季升温',
+            heatScore: 88,
+            fitScore: 74,
+            audience: 'connoisseur',
+            audienceLabel: '🏛️ 主攻：鉴赏家 (30%)',
+            tags: ['高客单价慎用', '消费降级预警', '有机牛乳'],
+            step1: '双十一期间年轻人反思“烧脑凑满减、囤货过期”，提出进入“纯过日子时代”',
+            step2: '平台实际口碑多指向“少消费、买平替、拒绝溢价”，与高客单价日常乳品存在舆论张力',
+            step3: '不可直接贴“省钱”标签，若用须切向“别处做减法，每天入口的奶不将就”',
+            stage: '爆发期',
+            safety: 'caution',
+            safetyLabel: '需注意语境',
+            safetyNote: '【口碑校准预警】小红书/抖音“纯过日子”实际讨论多偏向少花钱/买性价比刚需，高端有机牛乳硬蹭易在评论区被吐槽“太贵”；建议仅作内部洞察，或严格限定为“在别处做减法，把品质留给餐桌”。',
+            scenario: '产品 / 礼赠文案',
+            copy: '“少比多好”，大概就是“纯过日子时代”的答案——不为花哨溢价买单，只把餐桌留给5年养土、循环农作出的那一盒朝日唯品有机牛乳。',
+            originSourceText: '小红书 / 抖音双十一消费反思群体自发造词（无单一源头链接）',
+            links: [
+              { label: '播客热议《来都来了：纯过日子人崛起》', url: 'https://podcasts.apple.com/cn/podcast/no-308-%E7%BA%AF%E8%BF%87%E6%97%A5%E5%AD%90%E4%BA%BA%E5%B4%9B%E8%B5%B7-%E8%BF%99%E5%A5%BD%E6%97%A5%E5%AD%90%E6%88%91%E8%A6%81%E4%BA%B2%E8%87%AA%E8%BF%87/id1512932915?i=1000799103878' },
+              { label: '澎湃新闻《绝不等于低欲望》', url: 'https://www.thepaper.cn/newsDetail_forward_34544945' }
+            ]
+          },
+          {
+            id: 'lina-ti',
+            region: 'cn',
+            regionLabel: '中国区',
+            shortName: '厉娜体 / 画地为牢',
+            title: '「我画地为牢，厉娜」（厉娜体）',
+            platforms: ['芒果TV', '小红书', '抖音', '微博'],
+            timeWindow: '11月上中旬爆火至今',
+            heatScore: 92,
+            fitScore: 80,
+            audience: 'perceiver',
+            audienceLabel: '🌿 主攻：感知者 (50%)',
+            tags: ['与自然连结', '周末松弛感', '有机牛乳'],
+            step1: '综艺《后会友期》中许飞对厉娜哽咽说出“我画地为牢啊，厉娜”',
+            step2: '网友在日常吐槽句尾加“厉娜”，地方文旅官媒借“不画地为牢”作冬季宣传',
+            step3: '用“不画地为牢”反义解构，呼唤“与自身、与他人、与自然”重新连结',
+            stage: '爆发期',
+            safety: 'caution',
+            safetyLabel: '需注意语境',
+            safetyNote: '原语境带友情遗憾感，切忌消费艺人八卦或过度卖惨，建议用“不画地为牢”反义温柔解构。',
+            scenario: '小红书图文文案',
+            copy: '周末就别在工位里“画地为牢”了，厉娜——去草地上晒晒太阳，喝口朝日唯品，与自身、与他人、与自然重新连结。',
+            originSourceText: '芒果TV《后会友期》正片（需在芒果TV站内观看，无站外直链）',
+            links: [
+              { label: '网友搬运切片（YouTube）', url: 'https://www.youtube.com/watch?v=M7poAIQTgO8' },
+              { label: '澎湃新闻《一期更新150+热搜》', url: 'https://www.thepaper.cn/newsDetail_forward_34421292' },
+              { label: '中新网黑龙江《不画地为牢》', url: 'https://www.hlj.chinanews.com.cn/hljnews/2026/1123/164035.html' }
+            ]
+          },
+          {
+            id: 'chou-hu',
+            region: 'cn',
+            regionLabel: '中国区',
+            shortName: '人一旦寒心',
+            title: '「人一旦寒心，脸是会跟着变的」',
+            platforms: ['抖音', '微博热搜', '小红书'],
+            timeWindow: '11.12上线 · 3天破亿',
+            heatScore: 90,
+            fitScore: 76,
+            audience: 'perceiver',
+            audienceLabel: '🌿 主攻：感知者 (50%)',
+            tags: ['和身体对话', '晚间滋养', '循环善意'],
+            step1: 'AI志怪短剧《丑狐》台词，讲述狐妖屡遭消耗后面容随心寒而变',
+            step2: '3天播放破亿，打工人借此自嘲“加班与内耗导致的班味面相变化”',
+            step3: '温和正向转化为“土地和身体都记得被温柔对待”，用有机好物和身体对话',
+            stage: '爆发期',
+            safety: 'caution',
+            safetyLabel: '需注意语境',
+            safetyNote: '原剧偏微恐压抑，切忌制造容貌焦虑；品牌借势需温和正向转化为“好好吃饭、滋养自己”。',
+            scenario: '评论区互动 / 晚间文案',
+            copy: '听说“人一旦寒心，脸是会跟着变的”，但土地和身体都记得被温柔对待的感觉——下班后热一杯有机牛乳，先让身心一起暖回来。',
+            originSourceText: '抖音创作者「夜梦人」AI短剧《丑狐》（11.12上线，站外无直链）',
+            links: [
+              { label: '新浪《丑狐为何爆火》溯源', url: 'https://k.sina.com.cn/article_7879995944_1d5af3228068035wqy.html?from=ent' },
+              { label: '钛媒体《丑狐》5000万+播放报道', url: 'https://www.tmtpost.com/8215550.html' }
+            ]
+          },
+          {
+            id: 'my-moon-my-man',
+            region: 'global',
+            regionLabel: '全球区',
+            shortName: 'My Moon My Man',
+            title: '「My Moon My Man Trend」（双图滑动梗）',
+            platforms: ['TikTok', 'Instagram', 'Know Your Meme'],
+            timeWindow: '11月中旬爆发霸榜',
+            heatScore: 89,
+            fitScore: 94,
+            audience: 'perceiver',
+            audienceLabel: '🌿 主攻：感知者 (50%)',
+            tags: ['双图滑动', 'Enriching Lives', '丑蔬菜'],
+            step1: 'FINNEAS 现场翻唱 Feist 2007年《My Moon My Man》音频走红',
+            step2: 'TikTok 情侣用双图滑动把歌词“My Moon My Maaaa... ...an”横跨两图揭晓对象',
+            step3: '适配小红书/IG双图滑动，从“清晨空镜”滑向“朝日唯品牛乳与有机鲜蔬餐桌”',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '氛围感极佳，非常适合海外社媒或小红书“双图滑动”形式，将揭晓对象延展为餐桌好物。',
+            scenario: '小红书 / IG 双图滑动',
+            copy: '首图（晨光草地与亚麻餐桌）：My Morning, My Maaaa... → 滑动次图（朝日唯品牛乳+鲜切有机果蔬）：...anual of Enriching Lives.（与自然连结，和身体对话。）',
+            originSourceText: 'FINNEAS 2026年9月加拿大词曲作者名人堂翻唱现场（TikTok 双图玩法为网友自发衍生，无单一首发链接）',
+            links: [
+              { label: '环球音乐加拿大 FINNEAS 翻唱官方通稿', url: 'https://www.universalmusic.ca/2026/11/20/finneas-releases-cover-of-feists-my-moon-my-man/' },
+              { label: 'Know Your Meme 专题词条', url: 'https://knowyourmeme.com/memes/my-moon-my-man-trend' }
+            ]
+          },
+          {
+            id: 'huss-huss-huss',
+            region: 'global',
+            regionLabel: '全球区',
+            shortName: 'Huss Huss Huss',
+            title: '「Huss Huss Huss」（都在派对我在自律）',
+            platforms: ['TikTok', 'YouTube Shorts', 'Know Your Meme'],
+            timeWindow: '11.13–11.24 破3600万',
+            heatScore: 93,
+            fitScore: 88,
+            audience: 'both',
+            audienceLabel: '🌿感知者 + 🏛️鉴赏家',
+            tags: ['一丝不苟不慌不忙', '丑蔬菜', '健康自律'],
+            step1: 'TikTok 博主发布 Roblox 动画：主角喘息苦练，吐槽“全镇都在派对只有我在练”',
+            step2: '6天破3600万播放，衍生出舞曲混音、汉堡打包等“反差自律”二创',
+            step3: '融入“一丝不苟，不慌不忙”备餐哲学，把“自律”写成对健康与食材的敬意',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '无争议的幽默自律梗，很适合表达“别人在聚餐熬夜，我在认真打理健康饮食”的生活态度。',
+            scenario: '小红书 / 短视频开场白',
+            copy: '全小区周末都在外面聚餐吃大餐，只有我在厨房“huss huss huss”洗着有机“丑蔬菜”——好土壤种出的菜本来就有味道，一丝不苟，不慌不忙。',
+            originSourceText: 'TikTok 博主 @larpniverse 11月13日 Roblox 动画原视频（站外未索引直链）',
+            links: [
+              { label: 'Know Your Meme 溯源词条', url: 'https://knowyourmeme.com/memes/huss-huss-huss-in-this-town-everybody-goes-out-partying-except-me' },
+              { label: 'YouTube 热门二创（11.5万+观看）', url: 'https://www.youtube.com/watch?v=bvtsTTZGKbM' }
+            ]
+          },
+          {
+            id: 'robert-pattinson',
+            region: 'global',
+            regionLabel: '全球区',
+            shortName: '帕丁森抢饭碗',
+            title: '「Robert Pattinson Cast As Everyone」',
+            platforms: ['X (Twitter)', 'TikTok', 'Know Your Meme'],
+            timeWindow: '11.16 官宣007后发酵',
+            heatScore: 86,
+            fitScore: 82,
+            audience: 'connoisseur',
+            audienceLabel: '🏛️ 主攻：鉴赏家 (30%)',
+            tags: ['5年养土', '循序慢作', '牧场生态'],
+            step1: '11月16日亚马逊米高梅官宣帕丁森出演第七任 007，叠加其近期多部大片',
+            step2: '全网开启“假官宣恶搞”，调侃“别怕AI抢工作了，帕丁森正在抢走全人类饭碗”',
+            step3: '纯文字反差玩梗：哪怕他能演遍万物，5年抛荒养土、循序慢作仍需交给时间与农人',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '无害流行文化幽默；切勿直接使用艺人肖像图以规避版权风险，采用纯文字反差玩梗即可。',
+            scenario: '品牌社媒短文案',
+            copy: '听说最近全网都在担心那位英国男星抢走所有人的工作——好在，用5年时间抛荒养土、“一丝不苟，不慌不忙”酿出这杯有机牛乳，还是得交给农人和时间。',
+            originSourceText: '2026年11月16日 007 官方发布帕丁森选角公告（下方首条即官方原文）',
+            links: [
+              { label: '最初出处：007官网 11.16 官宣原文', url: 'https://www.007.com/robert-pattinson-is-the-new-james-bond/' },
+              { label: 'Know Your Meme 趋势页', url: 'https://knowyourmeme.com/newsfeed/trending' }
+            ]
+          },
+          {
+            id: 'telunsu-jinshahuang',
+            region: 'cn',
+            regionLabel: '中国区',
+            dimension: 'event',
+            shortName: '特仑苏×利乐如木',
+            title: '「特仑苏 × 利乐如木包装发布『金沙黄』」',
+            platforms: ['SocialBeta', '微博', '小红书'],
+            timeWindow: '11.20 正式发布',
+            heatScore: 84,
+            fitScore: 95,
+            audience: 'connoisseur',
+            audienceLabel: '🏛️ 主攻：鉴赏家 (30%)',
+            tags: ['竞品雷达', '如木环保包装', '土地色彩'],
+            step1: '11月20日特仑苏联合利乐与中国色研究院发布“金沙黄”，采用保留原木纸浆本色的如木包装',
+            step2: '借乌兰布和沙漠治理与自然本色，强化高端乳品的“生态联结+东方美学”叙事',
+            step3: '竞品对标提醒：朝日唯品早在2003年起坚持5年养土与植物基纸盒，宜用真实土壤数据+牛皮纸本色反手立住“时间先行者”心智',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '属于同行高质感生态营销参考，切忌公开拉踩竞品，建议用自身“20余年循环农作+真实土壤指标”做内容对照。',
+            scenario: '品牌深度图文 / 会员沟通',
+            copy: '包装的本色，本来就该像土地一样朴实。从2003年开始先用5年抛荒养土，到手里这只植物基可降解纸盒——朝日唯品用二十多年，只为守住“从自然中来，到自然中去”。',
+            originSourceText: 'SocialBeta 11月22日报道（11月20日特仑苏官方发布）',
+            links: [
+              { label: 'SocialBeta 案例原文', url: 'https://socialbeta.com/campaign/29058' }
+            ]
+          },
+          {
+            id: 'ritz-ult-coffee',
+            region: 'cn',
+            regionLabel: '中国区',
+            dimension: 'event',
+            shortName: '丽思卡尔顿×ULT',
+            title: '「丽思卡尔顿 × ULT. COFFEE 上海咖啡俱乐部」',
+            platforms: ['SocialBeta', '小红书', '上海线下快闪'],
+            timeWindow: '11.17 – 11.25 限时营业',
+            heatScore: 82,
+            fitScore: 92,
+            audience: 'both',
+            audienceLabel: '🌿感知者 + 🏛️鉴赏家',
+            tags: ['上海城市事件', '精品咖啡联名', '周边延伸'],
+            step1: '11月17日丽思卡尔顿携手世界咖啡师冠军主理的上海 ULT. COFFEE 开启限时咖啡空间',
+            step2: '推出云南临沧豆特调与酒店总厨定制烘焙，并把睡袍/眼罩/咖啡杯碟做成日常周边',
+            step3: 'B端与快闪灵感：朝日唯品有机牛乳可对标此类“城市精品咖啡馆+主厨烘焙”限时联名，打造上海冬季慢生活打卡点',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '高势能城市生活方式跨界样本，可直接作为上海区域 BD 联名与线下快闪策划参考。',
+            scenario: '城市联名快闪 / 小红书探店',
+            copy: '把高定餐桌的讲究，搬进街角那家阳光很好的咖啡店。周末去喝一杯有机牛乳打底的冬日特调，和城市里的同好坐下来聊聊日常。',
+            originSourceText: 'SocialBeta 11月23日报道（11.17–11.25 上海线下快闪）',
+            links: [
+              { label: 'SocialBeta 案例详情', url: 'https://socialbeta.com/campaign/29070' }
+            ]
+          },
+          {
+            id: 'winter-strawberry-flavor',
+            region: 'cn',
+            regionLabel: '中国区',
+            dimension: 'flavor',
+            shortName: '草莓季 & 洛神康普',
+            title: '「冬日草莓盒子季 & 洛神花康普茶/开心果抹茶风味」',
+            platforms: ['小红书', '盒马/山姆', '精品烘焙'],
+            timeWindow: '11.19–11.24 商超与咖啡圈升温',
+            heatScore: 87,
+            fitScore: 97,
+            audience: 'both',
+            audienceLabel: '🌿感知者 + 🏛️鉴赏家',
+            tags: ['时令果蔬食谱', '有机草莓', '牛乳特调'],
+            step1: '11月中旬起盒马、山姆等商超集体上线“草莓盒子蛋糕”，成为冬季烘焙周转最快单品；精品咖啡圈则流行洛神花康普茶、开心果抹茶、树莓桂花等组合',
+            step2: '小红书“鲜果+乳品”居家自制与干净配料表复刻笔记热度持续走高',
+            step3: '直接结合朝日唯品有机草莓/果蔬与有机牛乳，推出“零添加家庭版冬日草莓牛乳盒子”与“开心果抹茶热拿铁”食谱',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '极度贴近实际销售与内容种草，适合搭配精致妈妈亲子烘焙与白领周末DIY场景。',
+            scenario: '小红书高收藏食谱笔记',
+            copy: '入冬的第一口甜，不想吃满是植脂奶油的盒子。用朝日唯品有机牛乳打发淡奶，配上一颗颗“不慌不忙”长熟的有机草莓——配料表干净，给孩子吃也自在安心。',
+            originSourceText: '紫牛新闻 11月19日商超草莓季报道 + SocialBeta 11月23日上海特调风味观察',
+            links: [
+              { label: '紫牛新闻《草莓盒子蛋糕季来了》', url: 'https://www.yzwb.net/news/ch/202611/t20261119_414086.html' },
+              { label: 'SocialBeta《小红书食饮新品风向》', url: 'https://socialbeta.com/article/111363' }
+            ]
+          },
+          {
+            id: 'canadagoose-shanghai',
+            region: 'global',
+            regionLabel: '国际品牌 · 上海',
+            dimension: 'event',
+            shortName: '加拿大鹅·汇见南北',
+            title: '「加拿大鹅『汇见南北』上海城市探索 × 三江源纪录片」',
+            platforms: ['华丽志 Luxe.co', '微博', '上海线下'],
+            timeWindow: '11.02 – 11.09（近3月标杆）',
+            heatScore: 86,
+            fitScore: 98,
+            audience: 'both',
+            audienceLabel: '🌿感知者 + 🏛️鉴赏家',
+            tags: ['城市与自然', '牧民生态', '上海地标'],
+            step1: '11月初加拿大鹅在上海静安嘉里中心开快闪，并串联外白渡桥、黄浦江游轮与孙科别墅海派游园会',
+            step2: '同步发布连续4年三江源牧民生态保护纪录片《萨迹巡护队》，以“与土地最紧密相连的人守护土地”为核心叙事',
+            step3: '顶级参考样本：把「三江源牧民」换成「朝日唯品1500亩农场的农人与5年养土」，把「上海海派游园会」换成「城市餐桌品鉴会」',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '极高质感的奢牌双线叙事（城市空间体验+产地生态守护），完美兼顾感知者的共栖与鉴赏家的泊处。',
+            scenario: '年度品牌大片 / 上海线下策展',
+            copy: '与一片土地最紧密相连的人，往往也是她最耐心的守护者。从1500亩农场的循序慢作，到上海餐桌上的这一口鲜醇——我们把田野的静气，带回城市中央。',
+            originSourceText: '华丽志 11月9日深度报道（11月2日–9日上海线下事件）',
+            links: [
+              { label: '华丽志《联结城市与自然》全文', url: 'https://luxe.co/post/488080' }
+            ]
+          },
+          {
+            id: 'starbucks-pokemon-reveal',
+            region: 'global',
+            regionLabel: '国际食饮 · 日本/全球',
+            dimension: 'event',
+            shortName: '星巴克·包装微交互',
+            title: '「星巴克 × 宝可梦联名 & 撕拉/盲抽包装机制」',
+            platforms: ['星巴克日本', '小红书', '社媒热议'],
+            timeWindow: '9.30 – 11.18（近3月标杆）',
+            heatScore: 91,
+            fitScore: 87,
+            audience: 'perceiver',
+            audienceLabel: '🌿 主攻：感知者 (50%)',
+            tags: ['包装微交互', '撕拉惊喜', '低成本高传播'],
+            step1: '秋季星巴克推出宝可梦联名饮品与41款实用周边，近期再推11.18“欢乐扭蛋”盲抽与可撕开杯套机制',
+            step2: '消费者因“撕开/盲抽瞬间的惊喜感”自发在小红书晒图，极大延长单杯饮品的社交传播链路',
+            step3: '去二次元化迁移：在朝日唯品植物基纸盒/环保腰封做「撕开揭晓」——露出土壤编号、农人手记或手绘丑蔬菜书签',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '不学盲盒浪费与卡通画风，只学其“包装拆封瞬间的交互惊喜结构”，契合少比多好原则。',
+            scenario: '纸盒腰封交互 / 会员彩蛋',
+            copy: '撕开这层牛皮纸腰封，里面没有盲盒玩具，只有这一盒牛乳背后那块地的数据：抛荒5年养土，土壤有机质34.0g/kg，以及农人今天写下的一句早安。',
+            originSourceText: '星巴克日本 9月30日秋季联名 & 11月18日盲抽企划报道',
+            links: [
+              { label: 'Japaholic 联名全系列报道', url: 'https://japaholic.com/tw/article/detail/944735' },
+              { label: '11.18 盲抽企划报道', url: 'https://travelcontentsapp.com/sc/news/events/n20260805/' }
+            ]
+          },
+          {
+            id: 'to-summer-wild-soil',
+            region: 'cn',
+            regionLabel: '中国本土美学',
+            dimension: 'event',
+            shortName: '观夏·栖野之息',
+            title: '「观夏 × 小野『栖野之息』泥土草木疗愈空间」',
+            platforms: ['SocialBeta', '小红书', '成都线下展'],
+            timeWindow: '9.29 – 10月（近3月标杆）',
+            heatScore: 85,
+            fitScore: 94,
+            audience: 'perceiver',
+            audienceLabel: '🌿 主攻：感知者 (50%)',
+            tags: ['泥土草木气味', '情绪解药', '空间展览'],
+            step1: '9月底观夏推出“栖野之息”系列，把风、泥土、岩石与草木气息凝结进树皮纹理器皿，并在成都打造限时疗愈空间展',
+            step2: '打破“只卖香氛”的功能边界，将自然泥土气息包装成“帮都市人暂停焦虑的情绪解药”',
+            step3: '跨界启发：朝日唯品「土壤研究所」完全可以用“闻得到的新鲜泥土与牧草香”做快闪感官展，强化五感与情绪疗愈',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '安全可用',
+            safetyNote: '本土高端生活方式品牌的绝佳样本，精准命中感知者的“关怀（正念/平静）”与“共栖（泥土/草木）”。',
+            scenario: '线下快闪感官展 / 五感文案',
+            copy: '都市里最难得的不是昂贵的香气，而是雨后刚翻开的那一捧鲜活泥土味。来这里坐十分钟，和土地一起呼吸。',
+            originSourceText: 'SocialBeta 9月29日案例深度解析',
+            links: [
+              { label: 'SocialBeta《观夏的新联名有点“野”》', url: 'https://socialbeta.com/campaign/28619' }
+            ]
+          },
+          {
+            id: 'loro-piana-fibres',
+            region: 'global',
+            regionLabel: '国际标杆',
+            shortName: 'Loro Piana 纤维大师展',
+            title: '「Loro Piana《纤维大师》(Master of Fibres) 原料溯源展」',
+            platforms: ['华丽志', '清潭洞旗舰店', 'Instagram'],
+            timeWindow: '10.30 – 11.05（近3月标杆）',
+            stage: '上升期',
+            safety: 'safe',
+            safetyLabel: '高势能标杆',
+            dimension: 'event',
+            brandFit: 94,
+            audience: 'dual',
+            audienceText: '🏛️ 主攻：鉴赏家 (30%)',
+            drivers: '泊处 · 归属 · 关怀',
+            step1: '2026年10月31日至11月5日，Loro Piana 在首尔清潭洞旗舰店举办“纤维大师”展览，并同步在 Galleria 百货打造节日装置',
+            step2: '把顶级天然纤维的原料溯源、产区风土与匠人技艺直接搬进城市核心奢华空间，让“看不见的原料成本”变成可触摸的艺术展品',
+            sentimentCheck: '行业权威媒体（华丽志）报道，奢牌原料长期主义叙事在高净值人群中口碑极稳；受限于云端环境未抓取社交评论区一手实证。',
+            copyText: '顶级羊绒讲究纤维长度，好的牛乳讲究土壤时间。抛荒5年养土，只为这一口不慌不忙的循环风味。',
+            insight: '对高客单价日常品而言，“把看不见的源头长期主义（土壤/牧场/工艺）做成城市美术馆级展陈”，是鉴赏家最买单的溢价说服方式。',
+            originSourceText: '华丽志 2026年11月4日《华丽快讯》',
+            links: [
+              { label: '华丽志《Loro Piana 首尔清潭洞展览》', url: 'https://tong.luxe.co/event/tag/%E8%8A%82%E6%97%A5%E8%90%A5%E9%94%80/' }
+            ]
+          },
+          {
+            id: 'luckin-yunnan-train',
+            region: 'cn',
+            regionLabel: '中国区',
+            shortName: '瑞幸 咖啡豆专列',
+            title: '「瑞幸云南咖啡季『咖啡豆专列』× 18分钟慢烘叙事」',
+            platforms: ['SocialBeta', '小红书', '线下专列'],
+            timeWindow: '11.24 最新上线',
+            stage: '爆发期',
+            safety: 'safe',
+            safetyLabel: '跨界标杆',
+            dimension: 'event',
+            brandFit: 80,
+            audience: 'perceiver',
+            audienceText: '🌿 主攻：感知者 (50%)',
+            drivers: '丰盛 · 关怀 · 归属',
+            step1: '瑞幸于11月下旬开启云南咖啡季「咖啡豆专列」，主打云南水洗 SOE 咖啡豆与原创双烘焙曲线',
+            step2: '重点用“在经典烘焙基础上进行 18 分钟以上慢烘”的具体时长数字，配合线下城市专列事件，让产地风土与慢工艺具象化',
+            sentimentCheck: 'SocialBeta 11月24日首发案例；瑞幸大众低价策略本身与朝日唯品高客单不同，借鉴时需只取其“具体工艺时长+专列/产地体验”叙事，避开9.9元价格心智。',
+            copyText: '18分钟慢烘唤醒云南山野的焦糖坚果香，5年休耕养出1500亩农场的醇厚乳脂——好风味，从不怕花时间。',
+            insight: '把抽象的“匠心/慢工艺”翻译成精确的时间刻度（如 18 分钟慢烘 / 5 年休耕 / 72℃ 巴氏慢杀菌），能极大提升消费者对品质溢价的信任感。',
+            originSourceText: 'SocialBeta 2026年11月24日案例收录',
+            links: [
+              { label: 'SocialBeta《瑞幸云南咖啡季开启咖啡豆专列》', url: 'https://socialbeta.com/campaign/29083' }
+            ]
+          },
+          {
+            id: 'mintel-local-herbs',
+            region: 'cn',
+            regionLabel: '中国区',
+            shortName: '本土香辛料入饮',
+            title: '「本土香辛料入饮（荆芥/紫苏 × 精品烘焙与特调）」',
+            platforms: ['英敏特趋势', '小红书', 'Bistro/精品咖啡'],
+            timeWindow: '9.17 – 11月（近3月升温）',
+            stage: '升温期',
+            safety: 'safe',
+            safetyLabel: '风味灵感',
+            dimension: 'flavor',
+            brandFit: 88,
+            audience: 'dual',
+            audienceText: '🌿感知者 + 🏛️鉴赏家',
+            drivers: '丰盛 · 泊处 · 归属',
+            step1: '英敏特《2026年中国食品饮料创新风味趋势》指出，小酒馆、现制烘焙与饮品正加速将地域菜系与本土香辛料融入研发',
+            step2: '荆芥、紫苏、木姜子等带有鲜明土地气息的本土草本开始高频搭配乳品、咖啡与酸面包，成为一线城市“风土味觉”新暗号',
+            sentimentCheck: '基于英敏特 9月17日权威行业报告核验，Bistro 与精品咖啡圈接受度高；大众市场对强香辛料接受度分化，适合作为城市限定/联名款而非大通货。',
+            copyText: '当紫苏的清冽撞上循环农庄的有机鲜乳，把中国土地上的时令草木气，装进冬日第一口温热特调里。',
+            insight: '朝日唯品不仅有乳品，还有循环农业孕育的时令果蔬基因——联合城市精品烘焙或 Bistro 推出“本土草本×有机酪乳/鲜乳”限定风味，能精准击中鉴赏家。',
+            originSourceText: '英敏特 Mintel 2026年9月17日官方新闻稿',
+            links: [
+              { label: '英敏特《2026中国食品饮料创新风味趋势》', url: 'https://china.mintel.com/press-centre/flavour-innovation-trends/' }
+            ]
+          },
+          {
+            id: 'fridge-cigarette-break',
+            region: 'global',
+            regionLabel: '国际趋势',
+            shortName: 'Fridge Break 冰箱喘息',
+            title: '「“Fridge Cigarette” 冰箱喘息仪式 & 咖啡店特调衍生」',
+            platforms: ['TikTok', 'Falstaff', 'Inc.'],
+            timeWindow: '8.24 – 11.08（近3月长尾破圈）',
+            stage: '成熟期',
+            safety: 'caution',
+            safetyLabel: '慎用原词/借用场景',
+            dimension: 'mindset',
+            brandFit: 74,
+            audience: 'perceiver',
+            audienceText: '🌿 主攻：感知者 (50%)',
+            drivers: '关怀 · 泊处',
+            step1: 'TikTok 年轻人把工作间隙去冰箱拿一瓶冰饮放空 5 分钟的解压仪式戏称为“Fridge Cigarette”（用饮品替代传统抽烟休息）',
+            step2: '8月底至11月进一步破圈进线下咖啡馆（如洛杉矶 Noun Coffee 推出可乐+浓缩+香草奶盖特调），Inc. 与 Fast Company 10–11月报道其带动午间“微休息”饮用场景大涨',
+            sentimentCheck: '外媒评论及品牌安全复盘提示：“Cigarette（香烟）”一词带有成瘾/健康争议联想，有机健康品牌切勿直接照搬原词，只可借用“冰箱微休息仪式”场景。',
+            copyText: '下午三点，离开工位去冰箱前待两分钟。不用咖啡因硬扛，倒半杯冰凉顺滑的有机酪乳，给自己一个真正健康的“冰箱喘息时刻”。',
+            insight: '剥离掉“香烟”的戏谑外壳，其本质是都市打工人的「冰箱微休息（Fridge Break）」刚需——非常适合朝日唯品切入午后办公/居家冰箱场景。',
+            originSourceText: 'Falstaff 8月24日饮食报道 & Inc. 10月29日商业分析',
+            links: [
+              { label: 'Falstaff 咖啡店特调报道', url: 'https://www.falstaff.com/nordics/news/fridge-cigarette-whats-behind-the-viral-drink' },
+              { label: 'Inc.《Fridge Cig 趋势商业解析》', url: 'https://www.inc.com/kamya-marwah/coca-cola-diet-coke-fridge-cigarette-trend/91427341' }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const DIMENSION_MAP = {
+      meme: { label: '🔥 社媒热梗 & 互动玩法' },
+      event: { label: '🏛️ 品牌动作 & 城市大事件' },
+      mindset: { label: '🌱 消费心智 & 饮食思潮' },
+      flavor: { label: '🍋 新兴风味 & 餐饮灵感' }
+    };
+    const DEFAULT_DIM = {
+      'tree-tree': 'meme',
+      'chun-guo-ri-zi': 'mindset',
+      'lina-ti': 'meme',
+      'chou-hu': 'meme',
+      'my-moon-my-man': 'meme',
+      'huss-huss-huss': 'meme',
+      'robert-pattinson': 'meme'
+    };
+
+    let currentIssueIdx = 0;
+    let state = { region: 'all', dimension: 'all', safety: 'all', audience: 'all', adoptedOnly: false, query: '', view: 'cards' };
+
+    const issueSelect = document.getElementById('issueSelect');
+    const windowBadge = document.getElementById('windowBadge');
+    const cardsGrid = document.getElementById('cardsGrid');
+    const tableView = document.getElementById('tableView');
+    const tableBody = document.getElementById('tableBody');
+    const emptyState = document.getElementById('emptyState');
+    const adoptedKpi = document.getElementById('adoptedKpi');
+    const overviewChart = document.getElementById('overviewChart');
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+
+    function getIssue() { return ISSUES[currentIssueIdx]; }
+    function getMemes() { return getIssue().memes; }
+    function getStorageKey() { return `meme_share_adopted_${getIssue().id}`; }
+
+    function loadAdopted() {
+      try { return new Set(JSON.parse(window.localStorage.getItem(getStorageKey()) || '[]')); }
+      catch { return new Set(); }
+    }
+    function saveAdopted(set) {
+      try { window.localStorage.setItem(getStorageKey(), JSON.stringify([...set])); } catch {}
+    }
+
+    let adoptedIds = loadAdopted();
+
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.add('hidden'), 1800);
+    }
+
+    async function copyText(text, msg = '已复制到剪贴板') {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(msg);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(msg);
+      }
+    }
+
+    function initIssueSelect() {
+      issueSelect.innerHTML = ISSUES.map((iss, idx) => `<option value="${idx}">${iss.label}</option>`).join('');
+      issueSelect.value = String(currentIssueIdx);
+    }
+
+    function updateMetaAndKpis() {
+      const iss = getIssue();
+      const memes = iss.memes;
+      windowBadge.textContent = iss.window;
+      document.getElementById('kpiCnSafe').innerHTML = `${memes.filter(m => m.region === 'cn' && m.safety === 'safe').length} <span>个</span>`;
+      document.getElementById('kpiCnCaution').innerHTML = `${memes.filter(m => m.region === 'cn' && m.safety === 'caution').length} <span>个</span>`;
+      document.getElementById('kpiGlobalSafe').innerHTML = `${memes.filter(m => m.region === 'global' && m.safety === 'safe').length} <span>个</span>`;
+      adoptedKpi.innerHTML = `${adoptedIds.size} <span>/ ${memes.length}</span>`;
+      document.getElementById('btnRegAll').textContent = `全部 (${memes.length})`;
+      document.getElementById('btnRegCn').textContent = `🇨🇳 中国区 (${memes.filter(m => m.region === 'cn').length})`;
+      document.getElementById('btnRegGlobal').textContent = `🌍 全球区 (${memes.filter(m => m.region === 'global').length})`;
+    }
+
+    let chartSort = 'fit';
+    let chartExpanded = false;
+
+    window.setChartSort = function(mode) {
+      chartSort = mode;
+      document.getElementById('sortByFitBtn').classList.toggle('active', mode === 'fit');
+      document.getElementById('sortByHeatBtn').classList.toggle('active', mode === 'heat');
+      renderOverviewChart();
+    };
+
+    window.toggleChartExpand = function() {
+      chartExpanded = !chartExpanded;
+      renderOverviewChart();
+    };
+
+    function renderOverviewChart() {
+      const memes = [...getMemes()].sort((a, b) => chartSort === 'fit' ? (b.fitScore - a.fitScore) : (b.heatScore - a.heatScore));
+      const visible = chartExpanded ? memes : memes.slice(0, 5);
+      const toggleBtn = document.getElementById('toggleChartExpandBtn');
+      if (toggleBtn) {
+        toggleBtn.textContent = chartExpanded ? `收起至 Top 5 ▴` : `展开全部 (${memes.length}) ▾`;
+      }
+
+      overviewChart.innerHTML = visible.map((m, idx) => {
+        const tierBadge = m.fitScore >= 90
+          ? '<span style="font-size:10px; padding:1px 6px; border-radius:999px; background:var(--safe-bg); color:var(--safe); border:1px solid var(--safe-border);">强推</span>'
+          : m.fitScore >= 80
+            ? '<span style="font-size:10px; padding:1px 6px; border-radius:999px; background:var(--surface); color:var(--text);">推荐</span>'
+            : '<span style="font-size:10px; padding:1px 6px; border-radius:999px; background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn-border);">需转化</span>';
+        return `
+          <div class="chart-row" onclick="focusMeme('${m.id}')" style="grid-template-columns: 185px 1fr; padding: 6px 8px;">
+            <div class="chart-name" style="display:flex; align-items:center; gap:6px;">
+              <span style="width:16px; color:var(--muted); font-variant-numeric:tabular-nums;">${idx + 1}.</span>
+              <span style="overflow:hidden; text-overflow:ellipsis;">${m.shortName}</span>
+              ${tierBadge}
+            </div>
+            <div class="bars">
+              <div class="bar-line">
+                <div class="bar-track" style="height:8px;"><div class="bar-fill" style="width:${m.fitScore}%; background:var(--bar-fit)"></div></div>
+                <span style="width:46px; text-align:right; color:var(--primary); font-weight:600;">契合 ${m.fitScore}</span>
+              </div>
+              <div class="bar-line">
+                <div class="bar-track thin" style="height:5px;"><div class="bar-fill" style="width:${m.heatScore}%; background:var(--bar-heat)"></div></div>
+                <span style="width:46px; text-align:right;">热度 ${m.heatScore}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.focusMeme = function(id) {
+      const m = getMemes().find(x => x.id === id);
+      if (!m) return;
+      document.getElementById('searchInput').value = m.shortName;
+      state.query = m.shortName;
+      render();
+    };
+
+    window.quickFilter = function(region, safety) {
+      state.region = region;
+      state.safety = safety;
+      state.adoptedOnly = false;
+      state.query = '';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('safetyFilter').value = safety;
+      syncRegionBtns();
+      syncAdoptedBtn();
+      render();
+    };
+
+    function syncRegionBtns() {
+      document.querySelectorAll('.region-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.region === state.region);
+      });
+    }
+
+    function syncAdoptedBtn() {
+      document.getElementById('adoptedOnlyBtn').classList.toggle('btn-primary', state.adoptedOnly);
+    }
+
+    window.toggleAdopt = function(id) {
+      if (adoptedIds.has(id)) {
+        adoptedIds.delete(id);
+        showToast('已取消采纳标记');
+      } else {
+        adoptedIds.add(id);
+        showToast('已加入本期采纳选题');
+      }
+      saveAdopted(adoptedIds);
+      updateMetaAndKpis();
+      render();
+    };
+
+    window.copyMemeCopy = function(id) {
+      const item = getMemes().find(m => m.id === id);
+      if (item) copyText(item.copy, '品牌借势文案已复制');
+    };
+
+    function getItemDim(item) {
+      return item.dimension || DEFAULT_DIM[item.id] || 'meme';
+    }
+
+    function getFiltered() {
+      const q = state.query.trim().toLowerCase();
+      return getMemes().filter(item => {
+        if (state.region !== 'all' && item.region !== state.region) return false;
+        const dim = getItemDim(item);
+        if (state.dimension !== 'all' && dim !== state.dimension) return false;
+        if (state.safety !== 'all' && item.safety !== state.safety) return false;
+        if (state.audience !== 'all' && item.audience !== 'both' && item.audience !== state.audience) return false;
+        if (state.adoptedOnly && !adoptedIds.has(item.id)) return false;
+        if (q) {
+          const dimLabel = (DIMENSION_MAP[dim] || {}).label || '';
+          const hay = [item.title, item.shortName, item.step1, item.step2, item.step3, item.copy, item.scenario, item.audienceLabel, dimLabel, ...item.platforms, ...item.tags].join(' ').toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function render() {
+      const filtered = getFiltered();
+      if (filtered.length === 0) {
+        cardsGrid.classList.add('hidden');
+        tableView.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      emptyState.classList.add('hidden');
+
+      if (state.view === 'cards') {
+        tableView.classList.add('hidden');
+        cardsGrid.classList.remove('hidden');
+        cardsGrid.innerHTML = filtered.map(item => {
+          const isAdopted = adoptedIds.has(item.id);
+          const dimKey = getItemDim(item);
+          const dimLabel = (DIMENSION_MAP[dimKey] || { label: '🔥 社媒热梗' }).label;
+          return `
+            <article class="meme-card ${isAdopted ? 'adopted' : ''}">
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div class="meme-top">
+                  <div class="badges" style="margin:0;">
+                    <span class="badge badge-soft">${dimLabel}</span>
+                    <span class="badge badge-soft">${item.region === 'cn' ? '🇨🇳 中国区' : '🌍 全球区'}</span>
+                    <span class="badge badge-soft">${item.stage}</span>
+                    <span class="badge ${item.safety === 'safe' ? 'badge-safe' : 'badge-warn'}">${item.safetyLabel}</span>
+                    <span class="badge badge-soft" style="background:var(--primary-soft); color:var(--primary);">${item.audienceLabel}</span>
+                  </div>
+                  <button class="${isAdopted ? 'btn-primary' : ''}" onclick="toggleAdopt('${item.id}')">${isAdopted ? '✓ 已采纳' : '+ 采纳选题'}</button>
+                </div>
+
+                <div>
+                  <h3 class="meme-title">${item.title}</h3>
+                  <div class="meme-meta">
+                    <span>${item.platforms.join(' · ')} ｜ ${item.timeWindow}</span>
+                    <span>热度 <strong>${item.heatScore}</strong> ｜ 契合 <strong style="color:var(--primary)">${item.fitScore}</strong></span>
+                  </div>
+                  <div class="tags">${item.tags.map(t => `<span class="tag"># ${t}</span>`).join('')}</div>
+                </div>
+
+                <div class="steps-box">
+                  <div class="step"><span class="step-num">1</span><div><strong>最初出处：</strong>${item.step1}</div></div>
+                  <div class="step"><span class="step-num">2</span><div><strong>二创演变：</strong>${item.step2}</div></div>
+                  <div class="step"><span class="step-num accent">3</span><div><strong>品牌切入：</strong>${item.step3}</div></div>
+                </div>
+
+                <div class="safety-note">
+                  <strong style="color:${item.safety === 'safe' ? 'var(--safe)' : 'var(--warn)'};">${item.safety === 'safe' ? '安全建议：' : '语境提示：'}</strong>${item.safetyNote}
+                </div>
+
+                <div class="safety-note" style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 10px;">
+                  <strong style="color:var(--text);">💬 平台舆论验证：</strong>${item.sentimentCheck || (item.id === 'chun-guo-ri-zi'
+                    ? '已核查：小红书/抖音评论区真实底色多偏向“少消费、买平替、拒绝溢价”，对高客单价日常乳品存在舆论张力，已下调评分。'
+                    : '受云端环境平台限制，未直接抓取 App 内一手评论区；当前仅基于公开媒体报道 / Know Your Meme / YouTube 公开页面口碑核验（建议本地浏览器二次实看）。')}
+                </div>
+
+                <div class="origin-links">
+                  <div><strong>最初出处：</strong>${item.originSourceText}</div>
+                  <div><strong>相关报道/二创：</strong>${item.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label} ↗</a>`).join(' · ')}</div>
+                </div>
+              </div>
+
+              <div class="copy-box">
+                <div class="copy-head">
+                  <span class="copy-label">借势示范 · ${item.scenario}</span>
+                  <button onclick="copyMemeCopy('${item.id}')">复制文案</button>
+                </div>
+                <p class="copy-text">${item.copy}</p>
+              </div>
+            </article>
+          `;
+        }).join('');
+      } else {
+        cardsGrid.classList.add('hidden');
+        tableView.classList.remove('hidden');
+        tableBody.innerHTML = filtered.map(item => {
+          const isAdopted = adoptedIds.has(item.id);
+          const dimKey = getItemDim(item);
+          const dimLabel = (DIMENSION_MAP[dimKey] || { label: '🔥 社媒热梗' }).label;
+          return `
+            <tr>
+              <td><strong>${item.title}</strong><div style="color:var(--muted); margin-top:3px;">${dimLabel} · ${item.region === 'cn' ? '🇨🇳 中国区' : '🌍 全球区'}</div></td>
+              <td style="color:var(--muted);">${item.platforms.join(' / ')}</td>
+              <td><div>${item.stage}</div><div style="font-weight:600; color:${item.safety === 'safe' ? 'var(--safe)' : 'var(--warn)'};">${item.safetyLabel}</div></td>
+              <td><div>热度 ${item.heatScore}</div><div style="color:var(--primary);">契合 ${item.fitScore}</div></td>
+              <td style="max-width:300px; cursor:pointer;" onclick="copyMemeCopy('${item.id}')" title="点击复制">${item.copy}</td>
+              <td style="text-align:right; white-space:nowrap;"><button class="${isAdopted ? 'btn-primary' : ''}" onclick="toggleAdopt('${item.id}')">${isAdopted ? '✓ 已采纳' : '+ 采纳'}</button></td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    issueSelect.addEventListener('change', (e) => {
+      currentIssueIdx = Number(e.target.value);
+      adoptedIds = loadAdopted();
+      quickFilter('all', 'all');
+      updateMetaAndKpis();
+      renderOverviewChart();
+    });
+
+    document.querySelectorAll('.region-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.region = btn.dataset.region;
+        syncRegionBtns();
+        render();
+      });
+    });
+    document.getElementById('dimensionFilter').addEventListener('change', (e) => { state.dimension = e.target.value; render(); });
+    document.getElementById('safetyFilter').addEventListener('change', (e) => { state.safety = e.target.value; render(); });
+    document.getElementById('audienceFilter').addEventListener('change', (e) => { state.audience = e.target.value; render(); });
+    document.getElementById('adoptedOnlyBtn').addEventListener('click', () => { state.adoptedOnly = !state.adoptedOnly; syncAdoptedBtn(); render(); });
+    document.getElementById('searchInput').addEventListener('input', (e) => { state.query = e.target.value; render(); });
+
+    const viewCardsBtn = document.getElementById('viewCardsBtn');
+    const viewTableBtn = document.getElementById('viewTableBtn');
+    viewCardsBtn.addEventListener('click', () => { state.view = 'cards'; viewCardsBtn.classList.add('active'); viewTableBtn.classList.remove('active'); render(); });
+    viewTableBtn.addEventListener('click', () => { state.view = 'table'; viewTableBtn.classList.add('active'); viewCardsBtn.classList.remove('active'); render(); });
+
+    document.getElementById('exportMdBtn').addEventListener('click', () => {
+      if (activeMainTab === 'cases') {
+        const mdCases = [
+          `# 《朝日唯品 ZHAORIWEIPIN · 经典营销案例库》（常青沉淀）`,
+          '',
+          ...CLASSIC_CASES.map(c => [
+            `## ${c.title}（${c.brandYear}）`,
+            `- **核心课题**：${CASE_CATEGORIES[c.category]} ｜ **契合人群**：${c.audienceText}`,
+            `- **时代背景与痛点**：${c.background}`,
+            `- **核心创意动作**：${c.action}`,
+            `- **爆火底层逻辑**：${c.logic}`,
+            `- **朝日唯品可复用公式**：${c.reusableFormula}`,
+            ''
+          ].join('\n'))
+        ].join('\n');
+        copyText(mdCases, '经典营销案例库 Markdown 已复制');
+        return;
+      }
+      const iss = getIssue();
+      const md = [
+        `# 《朝日唯品 ZHAORIWEIPIN · 中国与全球出圈热梗简报》（${iss.label}）`,
+        '',
+        ...iss.memes.map(m => {
+          const dimLabel = (DIMENSION_MAP[getItemDim(m)] || { label: '🔥 社媒热梗' }).label;
+          return [
+            `## ${m.title}`,
+            `- **雷达维度**：${dimLabel}`,
+            `- **地区与来源平台**：${m.regionLabel} ｜ ${m.platforms.join('、')}`,
+            `- **主攻人群**：${m.audienceLabel}`,
+            `- **最初出处**：${m.originSourceText}`,
+            `- **前世今生**：1）${m.step1}；2）${m.step2}`,
+            `- **当前阶段 & 品牌安全度**：${m.stage} ｜ ${m.safetyLabel}（${m.safetyNote}）`,
+            `- **品牌借势示范（${m.scenario}）**：${m.copy}`,
+            `- **相关报道/二创**：${m.links.map(l => `[${l.label}](${l.url})`).join(' ｜ ')}`,
+            ''
+          ].join('\n');
+        })
+      ].join('\n');
+      copyText(md, '当前期 Markdown 已复制');
+    });
+
+    // ==================== 经典营销案例库（常青沉淀） ====================
+    const CASE_CATEGORIES = {
+      value: '💎 品牌溢价与价值锚定',
+      scenario: '🚀 日常品破圈与场景重构',
+      collab: '🤝 跨界联名与社交货币',
+      experience: '🕯️ 感官体验与用户共创'
+    };
+
+    const CLASSIC_CASES = [
+      {
+        id: 'patagonia-dont-buy',
+        category: 'value',
+        brandYear: 'Patagonia · 2011',
+        title: '《Don\'t Buy This Jacket》黑五反向整版广告',
+        audienceText: '🌿 感知者 + 🏛️ 鉴赏家',
+        background: '黑色星期五全美零售商都在拼命打折促销，大众对户外服饰的高溢价与过度消费产生审美疲劳。',
+        action: 'Patagonia 在《纽约时报》买下整版广告，直接印上自家的畅销抓绒夹克并写道“不要买这件夹克”，详列生产它消耗的水资源与碳排，呼吁消费者“先修补旧衣，只买真正需要的”。',
+        logic: '用“反商业的极致坦诚”建立无可替代的道德与品质信任感——越劝你少买，越证明它耐用、值这个高价（“少比多好”的心智鼻祖）。',
+        reusableFormula: '在双11/618促销季反其道而行，发布「少买一点，买好一点」透明账单：展示一盒牛乳背后 5 年休耕养土的时间成本，把“为什么不便宜”变成品牌骄傲。',
+        sourceLabel: 'Patagonia 官方档案',
+        sourceUrl: 'https://www.patagonia.com/stories/dont-buy-this-jacket-black-friday-and-the-new-york-times/story-18615.html'
+      },
+      {
+        id: 'aesop-store-philosophy',
+        category: 'value',
+        brandYear: 'Aesop · 长期体系',
+        title: '「一店一策」城市建筑修复与文学叙事体系',
+        audienceText: '🏛️ 主攻：鉴赏家 (30%)',
+        background: '高端洗护赛道极易陷入“成分党内卷”和标准化专柜审美疲劳，难以支撑高溢价与文化归属感。',
+        action: '坚持不打传统明星广告，每进入一个城市街区就邀请本土建筑师采用当地老材料打造独一无二的门店，并在店内设文学角与免费茶饮，把零售空间变成社区文化客厅。',
+        logic: '对鉴赏家而言，购买的不只是功能产品，而是“对城市街区与审美品位的认同”；空间即内容，文化即护城河。',
+        reusableFormula: '朝日唯品在高端商超或城市快闪时，可放弃塑料堆头，用“原生木箱/陶土器皿 + 农人手写土壤日记”打造小型街区展台，锚定鉴赏家的“泊处与归属”。',
+        sourceLabel: 'Aesop Architecture Archive',
+        sourceUrl: 'https://www.aesop.com/us/r/about'
+      },
+      {
+        id: 'oatly-coffee-b2b2c',
+        category: 'scenario',
+        brandYear: 'Oatly · 2016–2020',
+        title: '绕开商超货架：先占领精品咖啡馆的 B2B2C 破圈路径',
+        audienceText: '🌿 感知者 + 🏛️ 鉴赏家',
+        background: '燕麦奶最初在欧美与中国的超市货架上滞销——普通消费者不理解为什么植物奶卖得比普通牛奶贵几倍。',
+        action: 'Oatly 放弃在超市打价格战，转而免费给一线城市独立精品咖啡馆的咖啡师试用，借咖啡师的专业背书推出“燕麦拿铁”，让消费者先在咖啡馆喝到好口感，再反向去商超买盒装回家。',
+        logic: '日常高频品想突破高价天花板，必须先借“专业第三方场景（咖啡师/主厨）”完成第一次味觉教育与价值背书。',
+        reusableFormula: '朝日唯品有机鲜乳/酪乳可联合城市精品咖啡馆、独立酸面包烘焙店打造“100%循环农庄乳品合作店”，在菜单印上牧场编号，借咖啡师/烘焙师之口完成日常饮用升级。',
+        sourceLabel: 'Harvard Business Review / Oatly Case',
+        sourceUrl: 'https://hbr.org/2021/07/how-oatly-turned-a-boring-commodity-into-a-lifestyle-brand'
+      },
+      {
+        id: 'saturnbird-return',
+        category: 'scenario',
+        brandYear: '三顿半 · 2019–至今',
+        title: '「返航计划」空罐回收 × 城市社区领航点',
+        audienceText: '🌿 主攻：感知者 (50%)',
+        background: '精品速溶咖啡客单价高于传统速溶，小罐装塑料壳容易引发“不环保”的舆论质疑。',
+        action: '每年两次发起「返航计划」，鼓励用户攒下喝完的小罐，去全国合作的城市独立咖啡馆/书店（领航点）兑换限定周边与新品盲盒，把包装回收变成线下打卡仪式。',
+        logic: '把“环保焦虑”转化为“可持续的社交收集癖”，同时借助线下领航点低成本完成了老客复购与城市文化渗透。',
+        reusableFormula: '朝日唯品可将牛奶纸盒/玻璃瓶升级为“空瓶返航养土计划”：攒满 10 个空盒可在合作面包房兑换一份时令农庄蔬菜或限定周边，把循环农业闭环交到用户手里。',
+        sourceLabel: 'SocialBeta 品牌案例归档',
+        sourceUrl: 'https://socialbeta.com/'
+      },
+      {
+        id: 'starbucks-pokemon-tear',
+        category: 'collab',
+        brandYear: '星巴克日本 × 宝可梦 · 2026 秋',
+        title: '可撕开精灵球杯套 × 盲抽扭蛋包装微交互',
+        audienceText: '🌿 主攻：感知者 (50%)',
+        background: '常规品牌联名仅停留在换个联名印花杯身，消费者拍一次就腻，缺乏拆封瞬间的惊喜与二创动力。',
+        action: '在杯套上做结构微创新——设计成可沿虚线撕开的精灵球造型，撕开后里面藏着不同随机小精灵；同步配合 11 月“欢乐扭蛋”盲抽周边，放大“拆封那一秒”的社交晒图欲。',
+        logic: '不需要昂贵的技术，仅靠“外层可撕/内层盲盒信息”的物理结构微调，就能把一次性包装变成天然的短视频/小红书交互道具。',
+        reusableFormula: '朝日唯品可在礼盒或低温奶纸盒加一层牛皮纸腰封：“撕开这一层，里面是这盒牛奶背后那块地的数据——抛荒5年养土、有机质34.0g/kg，以及农人今天写下的一句早安”。',
+        sourceLabel: 'Japaholic 联名报道',
+        sourceUrl: 'https://japaholic.com/tw/article/detail/944735'
+      },
+      {
+        id: 'prada-rongzhai',
+        category: 'collab',
+        brandYear: 'Prada 荣宅 · 2017–至今',
+        title: '耗时六年修复百年海派老洋房，打造长期主义文化地标',
+        audienceText: '🏛️ 主攻：鉴赏家 (30%)',
+        background: '奢侈品大秀与短期快闪容易流于表面流量，难以真正进入中国高净值人群的文化记忆深处。',
+        action: 'Prada 耗时 6 年修缮上海百年名宅“荣宅”，不急于卖货，而是常年举办当代艺术展、电影放映与文化沙龙，使其成为上海最具辨识度的文化空间之一。',
+        logic: '真正的顶级品牌从不急着变现——愿意花“年份”去打磨一个物理空间，本身就是品牌最高级别的实力与审美宣言。',
+        reusableFormula: '对应朝日唯品“5年休耕养土”的长期主义：可在上海老洋房或城市美术馆举办一年一度的「土地休耕季」小型沙龙展，只讲土壤、时间与食物，不硬推促销。',
+        sourceLabel: 'Prada Group 荣宅档案',
+        sourceUrl: 'https://www.pradagroup.com/en/perspectives/culture/prada-rong-zhai.html'
+      },
+      {
+        id: 'bobs-red-mill-bakeries',
+        category: 'experience',
+        brandYear: 'Bob\'s Red Mill · 2025–2026',
+        title: '「Moregetherness / Little Free Bakeries」社区免费烘焙站',
+        audienceText: '🌿 主攻：感知者 (50%)',
+        background: '面粉与谷物属于极其传统的厨房基础原料，在年轻消费者眼中缺乏情感温度与社交传播力。',
+        action: '品牌针对现代都市人的孤独感推出“Moregetherness”运动：灵感源自社区免费图书馆，在街区搭建纸板“Little Free Bakeries（社区免费小面包站）”，鼓励大家用自家面粉烤点心分给邻居免费自取。',
+        logic: '当基础食材与“邻里善意/线下真实连接”绑定在一起，产品就不再只是货架上的面粉，而成了传递温暖的媒介（2026 入选 Fast Company Brands That Matter）。',
+        reusableFormula: '朝日唯品可联合社区友好型独立烘焙店或物业，在周末发起「社区早餐分享台」：用有机鲜奶制作温热小面包或热牛奶，让邻里在楼下驻足共享 5 分钟慢时光。',
+        sourceLabel: 'Fast Company 2026 Brands That Matter',
+        sourceUrl: 'https://www.fastcompany.com/91635528/food-drink-brands-that-matter-2026-bero-bobs-red-mill-butterball-carbone-cava-delta-beverages-chomps-diet-coke-dr-pepper-lays-fishwife-michelob-ultra-spam-stew-leona'
+      },
+      {
+        id: 'to-summer-wild-breath',
+        category: 'experience',
+        brandYear: '观夏 × 小野 · 2026.09',
+        title: '「栖野之息」把泥土、风与岩石搬进城市五感疗愈展',
+        audienceText: '🌿 主攻：感知者 (50%)',
+        background: '都市人群长期处于屏幕与写字楼的感官过载中，对“伪精致、强工业香精”产生疲惫，渴望真实的自然触感。',
+        action: '观夏在成都打造限时感官空间展，把风声、雨后泥土气息、岩石与草木质感凝结进树皮纹理器皿中，让观众坐下来与自然气味共处十分钟。',
+        logic: '感知者（50%）最容易被“可调动五感的真实自然细节”击中——线下五感体验带来的情绪记忆，远比线上十篇硬广更深刻。',
+        reusableFormula: '朝日唯品线下快闪可复刻“听风声、摸黑土、闻草木、喝一口低温鲜乳”的四步五感体验区，让消费者在城市里直观感受到 1500 亩农场的静气。',
+        sourceLabel: 'SocialBeta 案例原文',
+        sourceUrl: 'https://socialbeta.com/campaign/28619'
+      }
+    ];
+
+    let activeMainTab = 'radar';
+    let activeCaseCat = 'all';
+
+    window.switchMainTab = function(tab) {
+      activeMainTab = tab;
+      document.getElementById('tabRadarBtn').classList.toggle('active', tab === 'radar');
+      document.getElementById('tabCasesBtn').classList.toggle('active', tab === 'cases');
+      document.getElementById('radarWorkspace').classList.toggle('hidden', tab !== 'radar');
+      document.getElementById('casesWorkspace').classList.toggle('hidden', tab !== 'cases');
+      issueSelect.style.display = tab === 'radar' ? '' : 'none';
+      windowBadge.style.display = tab === 'radar' ? '' : 'none';
+      document.getElementById('safetyBadge').classList.toggle('hidden', tab !== 'radar');
+      document.getElementById('casesModeBadge').classList.toggle('hidden', tab !== 'cases');
+      document.getElementById('exportMdBtn').textContent = tab === 'radar' ? '导出当前期 Markdown' : '导出案例库 Markdown';
+      document.getElementById('tabHintText').textContent = tab === 'radar'
+        ? '当前频道：追踪国内外社媒热梗、品牌动作与饮食风味'
+        : '当前频道：按营销核心课题沉淀常青标杆案例（可随时切回热点雷达）';
+      if (tab === 'cases') renderCases();
+    };
+
+    window.setCaseCategory = function(cat) {
+      activeCaseCat = cat;
+      document.querySelectorAll('.case-cat-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === cat);
+      });
+      renderCases();
+    };
+
+    window.copyCaseFormula = function(id) {
+      const item = CLASSIC_CASES.find(c => c.id === id);
+      if (item) copyText(item.reusableFormula, '可复用公式已复制');
+    };
+
+    window.renderCases = function() {
+      const q = (document.getElementById('caseSearchInput')?.value || '').trim().toLowerCase();
+      const list = CLASSIC_CASES.filter(c => {
+        if (activeCaseCat !== 'all' && c.category !== activeCaseCat) return false;
+        if (q) {
+          const hay = [c.brandYear, c.title, c.background, c.action, c.logic, c.reusableFormula].join(' ').toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+      document.getElementById('caseCountBadge').textContent = `显示 ${list.length} / ${CLASSIC_CASES.length} 个经典标杆`;
+      const grid = document.getElementById('casesGrid');
+      if (!list.length) {
+        grid.innerHTML = `<div class="card" style="grid-column:1/-1; text-align:center; padding:40px 20px; color:var(--muted);">没有找到匹配的经典案例，试试切换课题或清空搜索词。</div>`;
+        return;
+      }
+      grid.innerHTML = list.map(c => `
+        <article class="card meme-card">
+          <div class="card-top">
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <span class="badge badge-soft">${CASE_CATEGORIES[c.category]}</span>
+              <span class="badge badge-neutral">${c.brandYear}</span>
+            </div>
+            <span class="badge badge-safe">${c.audienceText}</span>
+          </div>
+          <h3 class="meme-title" style="margin-top:4px;">${c.title}</h3>
+          <div class="meta-line" style="font-size:12px; color:var(--muted); line-height:1.6;">
+            <div><strong style="color:var(--text);">🕰️ 时代背景与痛点：</strong>${c.background}</div>
+            <div style="margin-top:4px;"><strong style="color:var(--text);">⚡ 核心创意动作：</strong>${c.action}</div>
+            <div style="margin-top:4px;"><strong style="color:var(--text);">🧠 爆火底层逻辑：</strong>${c.logic}</div>
+          </div>
+          <div class="copy-box">
+            <div class="copy-head">
+              <span>🥛 朝日唯品可复用公式</span>
+              <button style="padding:3px 9px; font-size:11px;" onclick="copyCaseFormula('${c.id}')">复制公式</button>
+            </div>
+            <p class="copy-text">${c.reusableFormula}</p>
+          </div>
+          <div class="card-footer">
+            <div class="links-wrap">
+              <a class="link-chip" href="${c.sourceUrl}" target="_blank" rel="noopener noreferrer">🔗 ${c.sourceLabel}</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    };
+
+    initIssueSelect();
+    updateMetaAndKpis();
+    renderOverviewChart();
+    render();
+  </script>
+</body>
+</html>
