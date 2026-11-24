@@ -574,6 +574,12 @@
             safety: 'caution',
             safetyLabel: '需注意语境',
             safetyNote: '【口碑校准预警】小红书/抖音“纯过日子”实际讨论多偏向少花钱/买性价比刚需，高端有机牛乳硬蹭易在评论区被吐槽“太贵”；建议仅作内部洞察，或严格限定为“在别处做减法，把品质留给餐桌”。',
+            platformVerified: true,
+            verifiedLabel: '小红书实测',
+            sentimentCheck: '已实测小红书高赞评论区：真实语境多偏向“情绪节能/不内耗”（114赞）与“躺平/消费克制、购物发朋友审批”（43–159赞），对高客单价日常乳品存在舆论张力，已下调评分。',
+            verifiedPosts: [
+              { platform: '小红书', title: '全民严肃进入纯过日子时代！', likes: '1.1万赞', url: 'https://www.xiaohongshu.com/explore/6ae03fb40000000018015365' }
+            ],
             scenario: '产品 / 礼赠文案',
             copy: '“少比多好”，大概就是“纯过日子时代”的答案——不为花哨溢价买单，只把餐桌留给5年养土、循环农作出的那一盒朝日唯品有机牛乳。',
             originSourceText: '小红书 / 抖音双十一消费反思群体自发造词（无单一源头链接）',
@@ -1270,9 +1276,21 @@
                 </div>
 
                 <div class="safety-note" style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 10px;">
-                  <strong style="color:var(--text);">💬 平台舆论验证：</strong>${item.sentimentCheck || (item.id === 'chun-guo-ri-zi'
-                    ? '已核查：小红书/抖音评论区真实底色多偏向“少消费、买平替、拒绝溢价”，对高客单价日常乳品存在舆论张力，已下调评分。'
-                    : '受云端环境平台限制，未直接抓取 App 内一手评论区；当前仅基于公开媒体报道 / Know Your Meme / YouTube 公开页面口碑核验（建议本地浏览器二次实看）。')}
+                  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+                    <strong style="color:var(--text);">💬 平台舆论验证</strong>
+                    ${item.platformVerified
+                      ? `<span class="badge badge-safe" style="font-size:11px; padding:1px 8px;">✅ ${item.verifiedLabel || '已平台实测'}${(item.verifiedPosts && item.verifiedPosts.length) ? ` · ${item.verifiedPosts.length} 帖` : ''}</span>`
+                      : `<span class="badge badge-soft" style="font-size:11px; padding:1px 8px; color:var(--muted);">⚠️ 仅公开报道核验</span>`}
+                  </div>
+                  <div>${item.sentimentCheck || '受环境限制，未直接抓取 App 内一手评论区；当前仅基于公开媒体报道 / Know Your Meme / YouTube 公开页面口碑核验（建议本地浏览器二次实看）。'}</div>
+                  ${(item.verifiedPosts && item.verifiedPosts.length) ? `
+                    <details style="margin-top:6px; border-top:1px dashed var(--border); padding-top:6px;">
+                      <summary style="cursor:pointer; color:var(--primary); font-weight:500; user-select:none;">查看验证出处（已抽检 ${item.verifiedPosts.length} 帖）</summary>
+                      <ul style="margin:6px 0 0; padding-left:16px; display:flex; flex-direction:column; gap:3px;">
+                        ${item.verifiedPosts.map(p => `<li><span style="color:var(--text);">[${p.platform}]</span> <a href="${p.url}" target="_blank" rel="noopener noreferrer" style="color:var(--link); text-decoration:none;">${p.title} ↗</a>${p.likes ? ` <span style="color:var(--muted);">(${p.likes})</span>` : ''}</li>`).join('')}
+                      </ul>
+                    </details>
+                  ` : ''}
                 </div>
 
                 <div class="origin-links">
@@ -1302,7 +1320,7 @@
             <tr>
               <td><strong>${item.title}</strong><div style="color:var(--muted); margin-top:3px;">${dimLabel} · ${item.region === 'cn' ? '🇨🇳 中国区' : '🌍 全球区'}</div></td>
               <td style="color:var(--muted);">${item.platforms.join(' / ')}</td>
-              <td><div>${item.stage}</div><div style="font-weight:600; color:${item.safety === 'safe' ? 'var(--safe)' : 'var(--warn)'};">${item.safetyLabel}</div></td>
+              <td><div>${item.stage}</div><div style="font-weight:600; color:${item.safety === 'safe' ? 'var(--safe)' : 'var(--warn)'};">${item.safetyLabel}</div><div style="font-size:11px; margin-top:2px; color:${item.platformVerified ? 'var(--safe)' : 'var(--muted)'};">${item.platformVerified ? `✅ ${item.verifiedLabel || '已平台实测'}` : '⚠️ 公开核验'}</div></td>
               <td><div>热度 ${item.heatScore}</div><div style="color:var(--primary);">契合 ${item.fitScore}</div></td>
               <td style="max-width:300px; cursor:pointer;" onclick="copyMemeCopy('${item.id}')" title="点击复制">${item.copy}</td>
               <td style="text-align:right; white-space:nowrap;"><button class="${isAdopted ? 'btn-primary' : ''}" onclick="toggleAdopt('${item.id}')">${isAdopted ? '✓ 已采纳' : '+ 采纳'}</button></td>
